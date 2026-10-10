@@ -1,5 +1,10 @@
 const OPFS_MARKER = '_game_ready';
 
+// Prefixo do repositório no GitHub Pages.
+// Em dev (localhost) fica "" porque o Vite serve da raiz.
+// Em prod fica "/gtavc" porque o Pages serve em /gtavc/.
+const REPO_BASE = self.location.pathname.startsWith('/gtavc/') ? '/gtavc' : '';
+
 const CONTENT_TYPES = new Map([
     ['.wasm', 'application/wasm'],
     ['.js', 'application/javascript'],
@@ -34,7 +39,18 @@ self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
-    const path = url.pathname;
+
+    // Só intercepta same-origin
+    if (url.origin !== self.location.origin) return;
+
+    let path = url.pathname;
+
+    // Remove o prefixo /gtavc quando estiver no GitHub Pages
+    if (REPO_BASE && path.startsWith(REPO_BASE + '/')) {
+        path = path.slice(REPO_BASE.length);
+    }
+
+    // Agora path começa com /vcsky/ ou /vcbr/
     if ((path.startsWith('/vcsky/') || path.startsWith('/vcbr/')) &&
         (event.request.method === 'GET' || event.request.method === 'HEAD')) {
         event.respondWith(serveFromOPFS(event.request, path));
