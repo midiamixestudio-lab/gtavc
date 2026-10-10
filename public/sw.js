@@ -1,7 +1,9 @@
 const OPFS_MARKER = '_game_ready';
 
-// Request types that make up the app itself; game data is served from OPFS.
-const REVALIDATED_DESTINATIONS = new Set(['document', 'script', 'style', 'worker', 'manifest']);
+// Prefixo do repositório no GitHub Pages.
+// Em dev (localhost) fica "" porque o Vite serve da raiz.
+// Em prod fica "/gtavc" porque o Pages serve em /gtavc/.
+const REPO_BASE = self.location.pathname.startsWith('/gtavc/') ? '/gtavc' : '';
 
 const CONTENT_TYPES = new Map([
     ['.wasm', 'application/wasm'],
@@ -37,24 +39,21 @@ self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
-    const path = url.pathname;
+
+    // Só intercepta same-origin
+    if (url.origin !== self.location.origin) return;
+
+    let path = url.pathname;
+
+    // Remove o prefixo /gtavc quando estiver no GitHub Pages
+    if (REPO_BASE && path.startsWith(REPO_BASE + '/')) {
+        path = path.slice(REPO_BASE.length);
+    }
+
+    // Agora path começa com /vcsky/ ou /vcbr/
     if ((path.startsWith('/vcsky/') || path.startsWith('/vcbr/')) &&
         (event.request.method === 'GET' || event.request.method === 'HEAD')) {
         event.respondWith(serveFromOPFS(event.request, path));
-        return;
-    }
-
-    // GitHub Pages lets the browser reuse the page and its scripts for 10
-    // minutes without asking, so a deploy can be invisible for that long (or
-    // mix an old page with new files). Make the browser check with the server
-    // first: an unchanged file costs a 304, a changed one is fetched fresh.
-    if (event.request.method === 'GET' && url.origin === self.location.origin &&
-        REVALIDATED_DESTINATIONS.has(event.request.destination)) {
-        event.respondWith(
-            fetch(event.request, { cache: 'no-cache' })
-                // offline: fall back to whatever the browser still has
-                .catch(() => fetch(event.request, { cache: 'force-cache' }))
-        );
     }
 });
 
