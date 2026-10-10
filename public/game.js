@@ -6,16 +6,9 @@ var wasm_content;
 
 const params = new URLSearchParams(window.location.search);
 
-// Detecta o prefixo do deploy (GitHub Pages /gtavc/ ou raiz em dev)
-const DEPLOY_BASE = (() => {
-    const p = window.location.pathname;
-    if (p.startsWith('/gtavc/')) return '/gtavc';
-    return '';
-})();
-
-// Base URLs — agora com prefixo relativo ao deploy
-const replaceFetch = (str) => str.replace("https://cdn.dos.zone/vcsky/", `${DEPLOY_BASE}/vcsky/`)
-const replaceBR = `${DEPLOY_BASE}/vcbr/`
+// Base URLs
+const replaceFetch = (str) => str.replace("https://cdn.dos.zone/vcsky/", "/vcsky/")
+const replaceBR = "/vcbr/"
 
 // Configurable mode - show settings UI before play
 const configurableMode = params.get('configurable') === "1";
@@ -264,7 +257,7 @@ async function loadGame(data) {
         info,
         receiveInstance,
     ) => {
-        const wasm = await (await fetch(wasm_content ? wasm_content : `${DEPLOY_BASE}/index.wasm`)).arrayBuffer();
+        const wasm = await (await fetch(wasm_content ? wasm_content : "index.wasm")).arrayBuffer();
         const module = await WebAssembly.instantiate(wasm, info);
         return receiveInstance(module.instance, module);
     };
@@ -288,7 +281,7 @@ async function loadGame(data) {
     script.addEventListener('load', () => {
         resumeAudioContexts();
     });
-    script.src = `${DEPLOY_BASE}/index.js`;
+    script.src = 'index.js';
     document.body.appendChild(script);
 
     document.body.classList.add('gameIsStarted');
