@@ -64,15 +64,15 @@
           <h1
             class="mt-[18px] mb-[10px] text-[clamp(2.4rem,5vw,4.7rem)] leading-[0.95] tracking-[-0.04em] text-[#f6fbff] max-sm:text-[2.55rem]"
           >
-            Grand Theft Auto:<br />Vice City
+            Grand Theft Auto:<br />Vice City Brasil
           </h1>
           <p
             class="mb-7 max-w-[38rem] text-left text-[1.05rem] leading-[1.7] text-[#94a7c6]"
           >
-            Import your <code>game.tar.gz</code> once — it's stored locally in
-            your browser via OPFS and served by a Service Worker. No CDN, no
-            external server, no recurring downloads. After the first import it
-            works fully offline.
+            Import seu <code>game.tar.gz</code> uma vez — ele é armazenado localmente 
+            no seu navegador via OPFS e servido por um Service Worker. Sem CDN, sem 
+            servidor externo, sem downloads recorrentes. Após a primeira importação, 
+            ele funciona totalmente offline.
           </p>
 
           <div
@@ -80,23 +80,24 @@
             class="relative rounded-[22px] border border-[rgba(159,195,255,0.16)] bg-[rgba(9,18,30,0.92)] p-[22px] text-left"
           >
             <div id="storage-status" class="storage-status">
-              Checking local game files…
+              Verificando arquivos locais do jogo…
             </div>
             <h2 class="mb-[10px] text-[1.15rem] text-[#f8fbff]">Setup</h2>
             <p class="mb-4 text-left text-[#94a7c6]">
-              The imported archive is stored locally by this browser, so you can
-              come back later without reimporting unless you want to replace it.
+              O arquivo importado é armazenado localmente por este navegador, portanto, 
+              você pode retornar mais tarde sem precisar importá-lo novamente, a menos 
+              que queira substituí-lo.
             </p>
 
             <div class="setup-actions-panel">
               <a id="dl-link" class="dl-btn" href="#" download
-                >Download game.tar.gz</a
+                >Baixar game.tar.gz</a
               >
 
               <label class="file-picker" for="game-file-input">
-                <span class="file-picker-label">Select game.tar.gz</span>
+                <span class="file-picker-label">Selecione game.tar.gz</span>
                 <span id="selected-file-name" class="file-picker-name"
-                  >No file selected</span
+                  >Nenhum arquivo selecionado</span
                 >
               </label>
               <input
@@ -117,13 +118,13 @@
 
             <div id="setup-progress" class="mt-[14px] hidden">
               <div class="setup-progress-head">
-                <span class="setup-progress-title">Importing game.tar.gz</span>
+                <span class="setup-progress-title">Importando game.tar.gz</span>
                 <span id="setup-progress-percent" class="setup-progress-percent"
                   >0%</span
                 >
               </div>
               <p id="setup-progress-label" class="mb-2.5 text-[#94a7c6]">
-                Preparing&hellip;
+                Preparando&hellip;
               </p>
               <div class="prog-bar-wrap">
                 <div class="prog-bar-fill" id="setup-progress-bar"></div>
@@ -137,7 +138,7 @@
 
           <div class="config-option cheats-toggle">
             <label for="enable-cheats">
-              <span>Enable cheats</span>
+              <span>Ative cheats</span>
               <span class="switch">
                 <input type="checkbox" id="enable-cheats" />
                 <span class="switch-track"></span>
@@ -150,15 +151,16 @@
               id="click-to-play-button"
               class="flex w-full min-h-12 items-center justify-center rounded-[14px] bg-linear-to-br from-[#82aaff] to-[#72e4c7] px-[18px] text-[1rem] font-bold text-[#07111f] transition-transform duration-200 hover:-translate-y-px"
             >
-              Start to play
+              Comece a jogar
             </button>
           </div>
 
           <details id="saves-panel" class="userdata-panel">
             <summary><h2>Saves</h2></summary>
             <p class="userdata-note">
-              Import a GTA Vice City PC save (.b or .zip) into a slot. Stored in
-              this browser; make changes here before pressing Start.
+              Importe um arquivo de salvamento do GTA Vice City para PC (.b ou .zip) 
+              para um slot. Ele fica armazenado
+              neste navegador; faça alterações aqui antes de pressionar Start.
             </p>
             <div id="saves-status" class="userdata-status" role="status" hidden></div>
 
