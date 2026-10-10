@@ -2,7 +2,7 @@
 
 Play GTA: Vice City right in your browser. Nothing to install: the game runs on your own device and keeps working offline.
 
-[![Open in your browser](https://img.shields.io/badge/-open%20in%20your%20browser-0098d4?style=for-the-badge)](https://joncodeofficial.github.io/gta-vice-city-wasm/)
+[![Open in your browser](https://img.shields.io/badge/-open%20in%20your%20browser-0098d4?style=for-the-badge)](https://midiamixestudio-lab.github.io/gtavc/)
 
 ![GTA: Vice City running in the browser, with a custom Spider-Man skin](public/demo.webp)
 
